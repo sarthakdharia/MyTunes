@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:mytunes/custom_theme.dart';
+import 'package:mytunes/controller/authcontroller.dart';
 import 'package:mytunes/screens/authentication/signup.dart';
 
 //Widget for input
@@ -55,6 +54,7 @@ class LoginState extends State<LoginWidget> {
                           SizedBox(
                             width: 300,
                             child: TextFormField(
+                              controller: emailController,
                               decoration: InputDecoration(
                                 hintText: "Email",
                                 focusColor: Theme.of(context).primaryColor,
@@ -76,6 +76,7 @@ class LoginState extends State<LoginWidget> {
                           SizedBox(
                             width: 300,
                             child: TextFormField(
+                              controller: passwordController,
                               decoration: InputDecoration(
                                   hintText: "Password",
                                   icon: Icon(
@@ -104,21 +105,25 @@ class LoginState extends State<LoginWidget> {
                                     stops: [0.1, 1.0],
                                     tileMode: TileMode.clamp)),
                             child: MaterialButton(
-                              highlightColor: Colors.transparent,
-                              splashColor: Colors.black,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 42.0),
-                                child: Text(
-                                  "Login",
-                                  style: TextStyle(
-                                      fontFamily: "SignikaSemiBold",
-                                      color: Colors.white,
-                                      fontSize: 22.0),
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.black,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 42.0),
+                                  child: Text(
+                                    "Login",
+                                    style: TextStyle(
+                                        fontFamily: "SignikaSemiBold",
+                                        color: Colors.white,
+                                        fontSize: 22.0),
+                                  ),
                                 ),
-                              ),
-                              onPressed: () => displaySnackBar("Login clicked"),
-                            ),
+                                onPressed: () {
+                                  AuthController.instance.login(
+                                      emailController.text.trim(),
+                                      passwordController.text.trim());
+                                  print("login init");
+                                }),
                           ),
                           Container(
                             child: FlatButton(

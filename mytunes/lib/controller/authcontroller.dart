@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mytunes/screens/authentication/login.dart';
@@ -7,15 +6,15 @@ import '../screens/home.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
-  late Rx<User?> _user;
+  late Rx<User?> user;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   void onReady() {
     super.onReady();
-    _user = Rx<User?>(auth.currentUser);
-    _user.bindStream(auth.userChanges());
-    ever(_user, _initialScreens);
+    user = Rx<User?>(auth.currentUser);
+    user.bindStream(auth.userChanges());
+    ever(user, _initialScreens);
   }
 
   _initialScreens(User? user) {
@@ -34,7 +33,7 @@ class AuthController extends GetxController {
     } catch (e) {
       Get.snackbar("About User", "User Message",
           snackPosition: SnackPosition.BOTTOM,
-          titleText: Text(
+          titleText: const Text(
             "About Creation Failed",
             style: TextStyle(color: Colors.blue),
           ),
@@ -47,7 +46,9 @@ class AuthController extends GetxController {
 
   void login(String email, password) async {
     try {
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+      print("inside login ${email} + ${password}");
+      UserCredential user = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
     } catch (e) {
       Get.snackbar("About Login", "User Message",
           snackPosition: SnackPosition.BOTTOM,

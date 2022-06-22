@@ -6,6 +6,7 @@ import 'package:mytunes/screens/authentication/login.dart';
 //Widget for input
 
 class SignUpWidget extends StatefulWidget {
+  const SignUpWidget({Key? key}) : super(key: key);
   @override
   SignUpState createState() {
     return SignUpState();
