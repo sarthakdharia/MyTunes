@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:mytunes/custom_theme.dart';
 import 'package:mytunes/screens/authentication/signup.dart';
 
@@ -178,10 +179,7 @@ class LoginState extends State<LoginWidget> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUpWidget()));
+                    Get.to(SignUpWidget());
                   },
                 ),
               ),

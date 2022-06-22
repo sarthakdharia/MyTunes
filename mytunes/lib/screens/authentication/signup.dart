@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mytunes/controller/authcontroller.dart';
 import 'package:mytunes/screens/authentication/login.dart';
 
 //Widget for input
@@ -25,6 +26,10 @@ class SignUpState extends State<SignUpWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var emailcontroller = TextEditingController();
+    var passwordcontroller = TextEditingController();
+
+    // var email, password;
     return Scaffold(
         body: Container(
       padding: EdgeInsets.only(top: 30.0),
@@ -77,6 +82,7 @@ class SignUpState extends State<SignUpWidget> {
                       SizedBox(
                         width: 300,
                         child: TextFormField(
+                          controller: emailcontroller,
                           decoration: InputDecoration(
                             hintText: "Email",
                             focusColor: Theme.of(context).primaryColor,
@@ -97,6 +103,7 @@ class SignUpState extends State<SignUpWidget> {
                       SizedBox(
                         width: 300,
                         child: TextFormField(
+                          controller: passwordcontroller,
                           decoration: InputDecoration(
                               hintText: "Password",
                               icon: Icon(
@@ -148,7 +155,7 @@ class SignUpState extends State<SignUpWidget> {
                           highlightColor: Colors.transparent,
                           splashColor: Colors.black,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(
+                            padding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 42.0),
                             child: Text(
                               "Sign Up",
@@ -159,7 +166,9 @@ class SignUpState extends State<SignUpWidget> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.pop(context);
+                            AuthController.instance.register(
+                                emailcontroller.text.trim(),
+                                passwordcontroller.text.trim());
                           },
                         ),
                       )
